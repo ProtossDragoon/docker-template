@@ -1,6 +1,0 @@
-  publish:
-    image: aihub-publish:v1
-    container_name: aihub-publish
-    build:
-      context: ./dockerfiles/publish
-      dockerifle: Dockerfile
