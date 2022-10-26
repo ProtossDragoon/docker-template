@@ -35,7 +35,7 @@ services:
       args:
         - IMAGE=ubuntu-ssh
         - TAG=v1
-        - CUDA_VERSION=${CUDA_WITHOUT_PATCH_VERSION}
+        - CUDA_WITHOUT_PATCH_VERSION=${CUDA_WITHOUT_PATCH_VERSION}
 
   develop:
     depends_on:
