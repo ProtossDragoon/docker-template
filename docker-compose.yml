@@ -1,0 +1,52 @@
+version: '3.3'
+
+services:
+  cuda:
+    image: ubuntu-cuda:v${CUDA_VERSION}
+    container_name: cuda
+    build:
+      context: ./dockerfiles/nvidia/v${CUDA_VERSION}
+      dockerfile: Dockerfile
+
+  ssh:
+    depends_on:
+      - cuda
+    image: ubuntu-ssh:v1
+    container_name: ssh
+    build:
+      context: ./dockerfiles/ssh
+      dockerfile: Dockerfile
+      args:
+        - IMAGE=ubuntu-cuda
+        - TAG=v${CUDA_VERSION}
+
+  pytorch:
+    depends_on:
+      - ssh
+    image: pytorch:v${PYTORCH_VERSION}
+    container_name: pytorch
+    build:
+      context: ./dockerfiles/pytorch/v${PYTORCH_VERSION}
+      dockerfile: Dockerfile
+      args:
+        - IMAGE=ubuntu-ssh
+        - TAG=v1
+
+  develop:
+    depends_on:
+      - pytorch
+    image: develop
+    container_name: develop
+    command: /usr/sbin/sshd -D
+    build:
+      context: ./dockerfiles/develop
+      dockerfile: Dockerfile
+      args:
+        - IMAGE=pytorch
+        - TAG=v${PYTORCH_VERSION}
+    ports:
+      - '${DEVELOP_SSH_PORT}:22'
+    expose:
+      - '${DEVELOP_SSH_PORT}'
+    volumes:
+      - ${PWD}/volume/dev:/root/dev/
