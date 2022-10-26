@@ -4,7 +4,7 @@ ARG TAG
 FROM ${IMAGE}:${TAG}
 
 # ssh 환경을 구축한다.
-RUN apt-get update && \
+RUN apt-get update -y && \
     apt-get install -y openssh-server
 RUN mkdir /var/run/sshd
 
