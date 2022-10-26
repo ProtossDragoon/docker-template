@@ -4,6 +4,9 @@ ARG TAG
 FROM ${IMAGE}:${TAG}
 
 # ssh 환경을 구축한다.
+ENV TZ=Asia/Seoul
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
 RUN apt-get update -y && \
     apt-get install -y openssh-server
 RUN mkdir /var/run/sshd
