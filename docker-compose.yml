@@ -7,6 +7,10 @@ services:
     build:
       context: ./dockerfiles/nvidia/v${CUDA_VERSION}
       dockerfile: Dockerfile
+      args:
+        - CUDA_VERSION=${CUDA_VERSION}
+        - CUDNN_VERSION=${CUDNN_VERSION}
+        - UBUNTU_VERSION=20.04
 
   ssh:
     depends_on:
@@ -31,6 +35,7 @@ services:
       args:
         - IMAGE=ubuntu-ssh
         - TAG=v1
+        - CUDA_VERSION=${CUDA_WITHOUT_PATCH_VERSION}
 
   develop:
     depends_on:
