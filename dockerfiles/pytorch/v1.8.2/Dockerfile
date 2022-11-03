@@ -1,11 +1,13 @@
 ARG IMAGE
 ARG TAG
-ARG CUDA_WITHOUT_PATCH_VERSION
 
 FROM ${IMAGE}:${TAG}
 
 RUN apt-get -y \
     install python3-pip
+
+ARG CUDA_WITHOUT_PATCH_VERSION
+
 RUN pip3 install \
     torch==1.8.2 \
     torchvision==0.9.2 \
