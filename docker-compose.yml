@@ -37,7 +37,7 @@ services:
   develop:
     depends_on:
       - pytorch
-    image: develop
+    image: ${DEVELOP_IMAGE_NAME}
     container_name: ${DEVELOP_CONTAINER_NAME}
     command: /usr/sbin/sshd -D
     build:
