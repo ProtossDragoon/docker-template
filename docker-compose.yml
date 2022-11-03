@@ -41,7 +41,7 @@ services:
     depends_on:
       - pytorch
     image: develop
-    container_name: develop
+    container_name: ${DEVELOP_CONTAINER_NAME}
     command: /usr/sbin/sshd -D
     build:
       context: ./dockerfiles/develop
