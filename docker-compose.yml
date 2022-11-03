@@ -3,7 +3,6 @@ version: '3.3'
 services:
   cuda:
     image: ubuntu-cuda:v${CUDA_VERSION}
-    container_name: cuda
     build:
       context: ./dockerfiles/nvidia/v${CUDA_VERSION}
       dockerfile: Dockerfile
@@ -16,7 +15,6 @@ services:
     depends_on:
       - cuda
     image: ubuntu-ssh:v1
-    container_name: ssh
     build:
       context: ./dockerfiles/ssh
       dockerfile: Dockerfile
@@ -28,7 +26,6 @@ services:
     depends_on:
       - ssh
     image: pytorch:v${PYTORCH_VERSION}
-    container_name: pytorch
     build:
       context: ./dockerfiles/pytorch/v${PYTORCH_VERSION}
       dockerfile: Dockerfile
