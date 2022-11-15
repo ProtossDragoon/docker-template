@@ -15,7 +15,8 @@ RUN pip install -U openmim &&\
 RUN pip install 'mmdet>=3.0.0rc0'
 
 # MMOCR 1.x 을 설치한다.
-RUN cd /root/dev/oss &&\
+RUN mkdir -p /root/dev/oss &&\
+    cd /root/dev/oss &&\
     git clone https://github.com/open-mmlab/mmocr.git &&\
     mv mmocr src_mmocr &&\
     cd src_mmocr &&\
