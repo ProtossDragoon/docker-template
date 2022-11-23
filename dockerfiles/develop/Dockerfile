@@ -31,5 +31,13 @@ RUN mkdir -p /root/dev/oss &&\
 # libgl1-mesa-glx: OpenCV 의존성
 RUN apt-get -y install libgl1-mesa-glx
 
+# 한글 시각화를 위한 나눔폰트 설치 및 matplotlib 폰트 캐시 제거
+RUN wget http://cdn.naver.com/naver/NanumFont/fontfiles/NanumFont_TTF_ALL.zip &&\
+    unzip NanumFont_TTF_ALL.zip -d NanumFont &&\
+    rm -f NanumFont_TTF_ALL.zip &&\
+    mv NanumFont /usr/share/fonts/ &&\
+    fc-cache -f -v &&\
+    rm -rf ~/.cache/matplotlib
+
 # 작업 디렉터리로 이동한다.
 WORKDIR /root/dev/dev/oss/src_mmocr
