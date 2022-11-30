@@ -21,7 +21,7 @@ RUN mkdir -p /root/dev/oss &&\
     mv mmocr src_mmocr &&\
     cd src_mmocr &&\
     git checkout 1.x &&\
-    pip install wandb &&\
+    pip install tqdm ray wandb &&\
     pip install -r requirements.txt &&\
     pip install -v -e . &&\
     pip install -r requirements/albu.txt &&\
@@ -41,4 +41,4 @@ RUN apt-get -y install unzip fontconfig &&\
     rm -rf ~/.cache/matplotlib
 
 # 작업 디렉터리로 이동한다.
-WORKDIR /root/dev/dev/oss/src_mmocr
+WORKDIR /root/dev/oss/src_mmocr
