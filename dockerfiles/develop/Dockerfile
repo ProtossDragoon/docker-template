@@ -14,13 +14,21 @@ RUN pip install -U openmim &&\
     mim install 'mmcv>=2.0.0rc1'
 RUN pip install 'mmdet>=3.0.0rc0'
 
+# F1 Score 도구를 설치한다.
+RUN mkdir -p /root/dev/oss &&\
+    cd /root/dev/oss &&\
+    git clone https://github.com/ProtossDragoon/OCRE2EHMean.git &&\
+    cd OCRE2EHMean &&\
+    git checkout aihub &&\
+    make install
+
 # MMOCR 1.x 을 설치한다.
 RUN mkdir -p /root/dev/oss &&\
     cd /root/dev/oss &&\
-    git clone https://github.com/open-mmlab/mmocr.git &&\
+    git clone https://github.com/ProtossDragoon/mmocr.git &&\
     mv mmocr src_mmocr &&\
     cd src_mmocr &&\
-    git checkout 1.x &&\
+    git checkout aihub &&\
     pip install tqdm ray wandb &&\
     pip install -r requirements.txt &&\
     pip install -v -e . &&\
@@ -40,5 +48,10 @@ RUN apt-get -y install unzip fontconfig &&\
     fc-cache -f -v &&\
     rm -rf ~/.cache/matplotlib
 
-# 작업 디렉터리로 이동한다.
-WORKDIR /root/dev/oss/src_mmocr
+# 가중치 파일을 이동시킨다.
+WORKDIR /root/dev/oss/src_mmocr/pretrained
+COPY pretrained /root/dev/oss/src_mmocr/pretrained
+
+# 스크립트 파일을 이동시킨다.
+WORKDIR /root/dev
+COPY *.sh /root/dev/
