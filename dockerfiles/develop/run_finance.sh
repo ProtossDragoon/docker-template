@@ -2,10 +2,10 @@ set -x
 CUR_DIR=$(pwd)
 
 LOGFILE_PATH=${CUR_DIR}/e2e_finance.log
-F_GT_BASE_DIR=${CUR_DIR}/oss/src_mmocr/data/e2f1/aihub_finance/part_100of100/test/gts
-F_PRED_BASE_DIR=${CUR_DIR}/oss/src_mmocr/data/e2f1/aihub_finance/part_100of100/test/preds
-F_MATRIX_BASE_DIR=${CUR_DIR}/oss/src_mmocr/data/e2f1/aihub_finance/part_100of100/test/matrix
-F_LOGOUTPUT_DIR=${CUR_DIR}/oss/src_mmocr/data/e2f1/aihub_finance/part_100of100/test
+F_GT_BASE_DIR=${CUR_DIR}/oss/src_mmocr/data/e2ef1/aihub_finance/part_100of100/test/gts
+F_PRED_BASE_DIR=${CUR_DIR}/oss/src_mmocr/data/e2ef1/aihub_finance/part_100of100/test/preds
+F_MATRIX_BASE_DIR=${CUR_DIR}/oss/src_mmocr/data/e2ef1/aihub_finance/part_100of100/test/matrix
+F_LOGOUTPUT_DIR=${CUR_DIR}/oss/src_mmocr/data/e2ef1/aihub_finance/part_100of100/test
 echo "Change directory: $(pwd)"
 echo "finance_gt_base_dir: ${F_GT_BASE_DIR}"
 echo "finance_pred_base_dir: ${F_PRED_BASE_DIR}"
