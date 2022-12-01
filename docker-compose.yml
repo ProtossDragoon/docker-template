@@ -49,5 +49,3 @@ services:
         - TAG=v${PYTORCH_VERSION}
     ports:
       - '${DEVELOP_SSH_PORT}:22'
-    volumes:
-      - ${PWD}/volume/dev:/root/dev/
