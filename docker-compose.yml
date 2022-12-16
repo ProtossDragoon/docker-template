@@ -39,8 +39,7 @@ services:
       - pytorch
     image: ${BACKEND_IMAGE_NAME}
     container_name: ${BACKEND_CONTAINER_NAME}
-    hostname: ${BACKEND_CONTAINER_NAME}
-    command: flask run -p 5001
+    command: flask run -p 5001 --host=0.0.0.0
     deploy:
       resources:
         reservations:
@@ -57,4 +56,9 @@ services:
         - TAG=v${PYTORCH_VERSION}
     ports:
       - '${DEVELOP_SSH_PORT}:22'
-      - '${DEVELOP_API_PORT}:5001'
+    networks:
+      - aihub-ocr-demo
+
+networks:
+  aihub-ocr-demo:
+    external: true
