@@ -1,5 +1,6 @@
 # 내장
 import json
+import os
 
 # 서드파티
 from mmocr.ocr import MMOCR
@@ -53,6 +54,11 @@ def get_model_kwargs(model_name: str) -> dict:
         return model_dict[model_name]
 
 
+def _write_empty_image(input_impath, copy_dir) -> None:
+    os.makedirs(copy_dir, exist_ok=True)
+    os.system(f'cp {input_impath} {copy_dir}')
+
+
 def _write_empty_json(path) -> None:
     with open(path, 'w', encoding='UTF-8-sig') as f:
         content = {
@@ -103,6 +109,7 @@ def run_inference(input_impath, output_imdir, output_jsonpath) -> str:
         _status = 'Prediction Successed'
     except IndexError:
         print(f'추론값이 비어 있는 이미지입니다: {input_impath}')
+        _write_empty_image(input_impath, output_imdir)
         _write_empty_json(output_jsonpath)
         _status = 'Empty prediction'
     else:
