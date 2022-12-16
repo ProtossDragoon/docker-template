@@ -79,18 +79,18 @@ def load_model(domain) -> None:
         TRANSIT = ['transit', 'Transit']
         DETECTION   = ['det', 'detection']
         RECOGNITION = ['recog', 'recognition']
-        if domain in FINANCE and task in DETECTION:
-            return 'AihubFinance_DBNet'
-        if domain in TRANSIT and task in DETECTION:
-            return 'AihubTransit_DBNet'
-        if domain in FINANCE and task in RECOGNITION:
-            return 'AihubFinance_SATRN'
-        if domain in TRANSIT and task in RECOGNITION:
-            return 'AihubTransit_SATRN'
-        if domain in DEBUG and task in DETECTION:
+        if (domain in DEBUG) and (task in DETECTION):
             return 'Debug_Det'
-        if domain in DEBUG and task in RECOGNITION:
+        if (domain in FINANCE) and (task in DETECTION):
+            return 'AihubFinance_DBNet'
+        if (domain in TRANSIT) and (task in DETECTION):
+            return 'AihubTransit_DBNet'
+        if (domain in DEBUG) and (task in RECOGNITION):
             return 'Debug_Recog'
+        if (domain in FINANCE) and (task in RECOGNITION):
+            return 'AihubFinance_SATRN'
+        if (domain in TRANSIT) and (task in RECOGNITION):
+            return 'AihubTransit_SATRN'
 
     global OCR
     kwargs = {'device': 'cpu'}
