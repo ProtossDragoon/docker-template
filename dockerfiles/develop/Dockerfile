@@ -3,6 +3,14 @@ ARG TAG
 
 FROM ${IMAGE}:${TAG}
 
+# GitLab
+RUN mkdir -p /root/.ssh
+ADD id_rsa /root/.ssh/id_rsa
+RUN touch /root/.ssh/known_hosts &&\
+    ssh-keyscan 192.168.200.20 >> /root/.ssh/known_hosts
+RUN chmod 400 ~/.ssh/id_rsa &&\
+    chmod 400 ~/.ssh/known_hosts
+
 # 작업에 도움이 되는 프로그램들을 설치한다.
 RUN apt-get update -y &&\
     apt-get install -y git &&\
@@ -15,25 +23,26 @@ RUN pip install -U openmim &&\
 RUN pip install 'mmdet>=3.0.0rc0'
 
 # F1 Score 도구를 설치한다.
-RUN mkdir -p /root/dev/oss &&\
-    cd /root/dev/oss &&\
-    git clone https://github.com/ProtossDragoon/OCRE2EHMean.git &&\
-    cd OCRE2EHMean &&\
+RUN mkdir -p /root/dev/oss/OCRE2EHMean &&\
+    cd /root/dev/oss/OCRE2EHMean &&\
+    echo $PWD &&\
+    git clone git@192.168.200.20:ailab/AiSolutionLabMiniTask.git . &&\
     git checkout aihub &&\
-    make install
+    make install &&\
+    cd ..
 
 # MMOCR 1.x 을 설치한다.
-RUN mkdir -p /root/dev/oss &&\
-    cd /root/dev/oss &&\
-    git clone https://github.com/ProtossDragoon/mmocr.git &&\
-    mv mmocr src_mmocr &&\
-    cd src_mmocr &&\
+RUN mkdir -p /root/dev/oss/src_mmocr &&\
+    cd /root/dev/oss/src_mmocr &&\
+    echo $PWD &&\
+    git clone git@192.168.200.20:ailab/ocr/aihub-ocr-mmocr.git . &&\
     git checkout aihub &&\
     pip install tqdm ray wandb &&\
     pip install -r requirements.txt &&\
     pip install -v -e . &&\
     pip install -r requirements/albu.txt &&\
-    pip uninstall opencv-python-headless
+    pip uninstall opencv-python-headless &&\
+    cd ..
 
 # 개발 환경에 사용되는 환경을 구축합니다.
 # libgl1-mesa-glx: OpenCV 의존성
